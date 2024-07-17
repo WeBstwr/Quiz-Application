@@ -14,10 +14,9 @@ body {
   font-family: "Josefin Sans", sans-serif;
 }
 
-
 :root {
-  --first-color: #1A5319;
-  --second-color: #508D4E;
-  --third-color: #80AF81;
-  --fourth-color: #D6EFD8;
+  --first-color: #1a5319;
+  --second-color: #508d4e;
+  --third-color: #80af81;
+  --fourth-color: #d6efd8;
 }

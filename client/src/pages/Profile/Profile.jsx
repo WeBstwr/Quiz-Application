@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
+import { useAuth } from "../../context/AuthContext/AuthContext";
 
-function Profile() {
+const Profile = () => {
+  const currentUser = useAuth();
   return (
-    <div>Profile</div>
-  )
-}
+    <div className="display-user">
+      Hello{" "}
+      {currentUser?.displayName ? currentUser.displayName : currentUser?.email},
+      you are now logged in.
+    </div>
+  );
+};
 
-export default Profile
+export default Profile;
