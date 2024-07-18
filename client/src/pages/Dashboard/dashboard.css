@@ -1,0 +1,52 @@
+.dashboard h1 {
+  font-size: 3rem;
+  text-align: center;
+  color: var(--first-color);
+  text-transform: capitalize;
+  padding: 2rem;
+}
+
+.topics-area {
+  display: flex;
+  padding: 1rem 4rem;
+  flex-wrap: wrap;
+  gap: 5rem;
+  justify-content: space-around;
+}
+
+.topics-container {
+  background-color: var(--fourth-color);
+  width: 50rem;
+  height: 25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: -8px 10px 12px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -8px 10px 12px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -8px 10px 12px 0px rgba(0, 0, 0, 0.75);
+}
+
+.topics-container :hover {
+  cursor: pointer;
+}
+
+.topic-title h2 {
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+
+.topic-title h3 {
+  font-size: 1.5rem;
+  color: var(--second-color);
+  text-transform: capitalize;
+  padding: 2rem 0;
+}
+
+.topic-description p {
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  line-height: 1.5rem;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import "./assets/globals.css";
 // import { AuthProvider } from "./context/authContext/authContext";
 import Header from "./components/Header/Header";
 import SignUp from "./components/Authentication/SignUp/SignUp";

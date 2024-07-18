@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext/AuthContext.jsx";
 import { doSignOut } from "../../firebase/auth.js";
-import "../../assets/globals.css";
 import "./header.css";
 
 function Header() {
