@@ -1,4 +1,5 @@
 import React from "react";
+import "./questions.css";
 
 function Questions() {
   return (
@@ -17,6 +18,14 @@ function Questions() {
                 officiis enim impedit perspiciatis nam, assumenda at doloribus,
                 aliquam, fugiat reiciendis distinctio rerum ea?
               </p>
+            </div>
+            <div className="questions-options">
+              <div className="quiestions-options-part">
+                a<button>opt1</button>b<button>opt2</button>
+              </div>
+              <div className="quiestions-options-part">
+                c<button>opt3</button>d<button>opt4</button>
+              </div>
             </div>
           </div>
           <div className="button-next-previous">
