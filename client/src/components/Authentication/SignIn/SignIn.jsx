@@ -1,11 +1,11 @@
 import "./signIn.css";
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
 } from "../../../firebase/auth.js";
-import { useAuth } from "../../../context/AuthContext/AuthContext.jsx";
+import { useAuth } from "../../../context/authContext/authContext.jsx";
 import { Link } from "react-router-dom";
 
 const SignIn = () => {
@@ -14,6 +14,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -21,8 +22,10 @@ const SignIn = () => {
     try {
       setIsSigningIn(true);
       await doSignInWithEmailAndPassword(email, password);
+      navigate("/Students");
     } catch (error) {
       setError(error.message);
+    } finally {
       setIsSigningIn(false);
     }
   };
@@ -31,8 +34,10 @@ const SignIn = () => {
     try {
       setIsSigningIn(true);
       await doSignInWithGoogle();
+      navigate("/Students");
     } catch (error) {
       setError(error.message);
+    } finally {
       setIsSigningIn(false);
     }
   };

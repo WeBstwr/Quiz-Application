@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext/AuthContext.jsx";
+import { useAuth } from "../../context/authContext/authContext.jsx";
 import { doSignOut } from "../../firebase/auth.js";
 import "./header.css";
 
