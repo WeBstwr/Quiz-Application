@@ -1,0 +1,62 @@
+.form-section {
+  width: 60%;
+  height: 60vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10rem;
+  border: 3px solid var(--first-color);
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.form-section h2 {
+  text-align: center;
+  font-size: 4rem;
+  padding: 1.5rem;
+  color: var(--first-color);
+}
+
+.email-and-password {
+  display: flex;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+.email-and-password input {
+  font-size: 2rem;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--first-color);
+}
+
+.sign-in-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.sign-in-buttons button {
+  font-size: 2rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--first-color);
+  color: var(--fourth-color);
+  cursor: pointer;
+}
+
+.form-link a {
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}

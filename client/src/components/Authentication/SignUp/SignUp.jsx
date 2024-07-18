@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "../../../firebase/auth.js";
+import "./signUp.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -28,34 +29,42 @@ const SignUp = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <h2>Sign Up</h2>
-      {error && <p>{error}</p>}
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        required
-      />
-      <button type="submit" disabled={isRegistering}>
-        {isRegistering ? "Registering..." : "Sign Up"}
-      </button>
-    </form>
+    <>
+      <div className="sign-up-form">
+        <form onSubmit={onSubmit}>
+          <h2>Sign Up</h2>
+          {error && <p>{error}</p>}
+          <div className="sign-up-email-password">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="sign-up-submit-btn">
+            <button type="submit" disabled={isRegistering}>
+              {isRegistering ? "Registering..." : "Sign Up"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

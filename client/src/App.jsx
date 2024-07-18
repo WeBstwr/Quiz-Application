@@ -1,6 +1,6 @@
 import React from "react";
 import "./assets/globals.css";
-// import { AuthProvider } from "./context/authContext/authContext";
+import { AuthProvider } from "./context/AuthContext/AuthContext";
 import Header from "./components/Header/Header";
 import SignUp from "./components/Authentication/SignUp/SignUp";
 import SignIn from "./components/Authentication/SignIn/SignIn";

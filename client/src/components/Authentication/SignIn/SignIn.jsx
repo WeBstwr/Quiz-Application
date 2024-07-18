@@ -1,3 +1,4 @@
+import "./signIn.css";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import {
@@ -39,31 +40,43 @@ const SignIn = () => {
   return (
     <>
       {userLoggedIn && <Navigate to="/Profile" replace />}
-      <form onSubmit={onSubmit}>
-        <h2>Sign In</h2>
-        {error && <p>{error}</p>}
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit" disabled={isSigningIn}>
-          {isSigningIn ? "Signing In..." : "Sign In"}
-        </button>
-        <button type="button" onClick={onGoogleSignIn} disabled={isSigningIn}>
-          {isSigningIn ? "Signing In..." : "Sign In with Google"}
-        </button>
-        <Link to="/SignUp">Don't have an account? Sign Up</Link>
-      </form>
+      <div className="form-section">
+        <form onSubmit={onSubmit}>
+          <h2>Sign In</h2>
+          {error && <p>{error}</p>}
+          <div className="email-and-password">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="sign-in-buttons">
+            <button type="submit" disabled={isSigningIn}>
+              {isSigningIn ? "Signing In..." : "Sign In"}
+            </button>
+            <button
+              type="button"
+              onClick={onGoogleSignIn}
+              disabled={isSigningIn}
+            >
+              {isSigningIn ? "Signing In..." : "Sign In with Google"}
+            </button>
+          </div>
+          <div className="form-link">
+            <Link to="/SignUp">Don't have an account? Sign Up</Link>
+          </div>
+        </form>
+      </div>
     </>
   );
 };
