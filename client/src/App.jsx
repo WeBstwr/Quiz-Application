@@ -9,6 +9,7 @@ import Questions from "./pages/Questions/Questions";
 import Profile from "./pages/Profile/Profile";
 import Students from "./pages/admin/Students/Students";
 import Category from "./pages/admin/Category/Category";
+import AddQuestion from "./pages/admin/AddQuestion/AddQuestion";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Students" element={<Students />} />
           <Route path="/Category" element={<Category />} />
+          <Route path="/AddQuestion" element={<AddQuestion />} />
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>

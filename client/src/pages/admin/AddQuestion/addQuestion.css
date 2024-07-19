@@ -1,0 +1,99 @@
+.add-quiz-section {
+  margin-bottom: 4rem;
+}
+
+.add-quiz-section h2 {
+  font-size: 2.5rem;
+  text-transform: capitalize;
+  text-align: center;
+  color: var(--first-color);
+  padding: 2rem;
+}
+
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.fill-in-space {
+  width: 40rem;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  padding: 4px;
+  text-align: center;
+}
+
+.fill-in-space input {
+  font-size: 2rem;
+  width: 100%;
+  text-align: center;
+  padding: 2px;
+  border: 2px solid var(--first-color);
+  border-radius: 5px;
+}
+
+.quiz-space {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz-label {
+  font-size: 2.5rem;
+  font-size: 700;
+  padding: 1rem;
+}
+
+.quiz-space textarea {
+  padding: 2rem;
+  font-size: 2.5rem;
+  font-family: inherit;
+  align-items: center;
+  height: 40rem;
+}
+
+.answers-area {
+  font-size: 2rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.answers-input {
+  border: 2px solid var(--first-color);
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  padding: 3px;
+  width: 20rem;
+  font-size: 2rem;
+}
+
+.answers-container {
+  width: 60rem;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.answers-container label {
+  font-size: 2rem;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.submit-btn {
+  background-color: var(--first-color);
+  font-size: 2rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  color: var(--fourth-color);
+}
