@@ -1,0 +1,40 @@
+.home-admin-main-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.home-admin-navigation-section {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 40rem;
+  gap: 2rem;
+  padding: 4rem;
+}
+
+.home-admin-navigation-section button {
+  width: 100%;
+  font-size: 2rem;
+  text-transform: capitalize;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: var(--second-color);
+  color: var(--fourth-color);
+  border: none;
+  cursor: pointer;
+}
+
+.welcome-admin-section {
+  width: 100%;
+  margin-top: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-admin-section h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
+  color: var(--first-color);
+  text-transform: capitalize;
+}

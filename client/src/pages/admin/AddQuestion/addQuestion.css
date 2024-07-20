@@ -1,5 +1,6 @@
 .add-quiz-section {
   margin-bottom: 4rem;
+  display: flex;
 }
 
 .add-quiz-section h2 {
@@ -16,6 +17,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .fill-in-space {
@@ -96,4 +98,5 @@
   border-radius: 5px;
   border: none;
   color: var(--fourth-color);
+  cursor: pointer;
 }

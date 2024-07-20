@@ -22,7 +22,7 @@ const SignIn = () => {
     try {
       setIsSigningIn(true);
       await doSignInWithEmailAndPassword(email, password);
-      navigate("/Students");
+      navigate("/");
     } catch (error) {
       setError(error.message);
     } finally {
@@ -34,7 +34,7 @@ const SignIn = () => {
     try {
       setIsSigningIn(true);
       await doSignInWithGoogle();
-      navigate("/Students");
+      navigate("/");
     } catch (error) {
       setError(error.message);
     } finally {

@@ -13,6 +13,7 @@
 }
 
 .admin-navigation-section button {
+  width: 100%;
   font-size: 2rem;
   text-transform: capitalize;
   padding: 5px;

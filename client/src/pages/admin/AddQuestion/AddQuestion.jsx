@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./addQuestion.css";
 
 function AddQuestion() {
@@ -27,8 +28,20 @@ function AddQuestion() {
 
   return (
     <section className="add-quiz-section">
-      <h2>add question</h2>
+      <div className="admin-navigation-section">
+        <Link to="/Students">
+          <button>Students</button>
+        </Link>
+        <Link to="/Category">
+          <button>Categories</button>
+        </Link>
+        <Link to="/AddQuestion">
+          <button>Add Question</button>
+        </Link>
+      </div>
+
       <form className="quiz-container" onSubmit={handleSubmit}>
+        <h2>Add Question</h2>
         <div className="fill-in-space">
           <label>Category:</label>
           <input

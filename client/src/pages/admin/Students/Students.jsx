@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./students.css";
 
 function Students() {
@@ -7,65 +8,27 @@ function Students() {
       <section className="admin-section">
         <div className="admin-main-container">
           <div className="admin-navigation-section">
-            <button>students</button>
-            <button>categories</button>
-            <button>add question</button>
+            <Link to="/Students">
+              <button>Students</button>
+            </Link>
+            <Link to="/Category">
+              <button>Categories</button>
+            </Link>
+            <Link to="/AddQuestion">
+              <button>Add Question</button>
+            </Link>
           </div>
           <div className="admin-students-section">
-            <h2>your students</h2>
+            <h2>Your Students</h2>
             <div className="admin-students-container">
               <div className="student-main-container">
                 <div className="student-container">
-                  <h3>name: ian wololo</h3>
-                  <h4>email: wololo@gmail.com</h4>
-                  <p>phone: 0712345678</p>
+                  <h3>Name: Ian Wololo</h3>
+                  <h4>Email: wololo@gmail.com</h4>
+                  <p>Phone: 0712345678</p>
                 </div>
                 <div className="remove-student-button">
-                  <button>remove</button>
-                </div>
-              </div>
-
-              <div className="student-main-container">
-                <div className="student-container">
-                  <h3>name: ian wololo</h3>
-                  <h4>email: wololo@gmail.com</h4>
-                  <p>phone: 0712345678</p>
-                </div>
-                <div className="remove-student-button">
-                  <button>remove</button>
-                </div>
-              </div>
-
-              <div className="student-main-container">
-                <div className="student-container">
-                  <h3>name: ian wololo</h3>
-                  <h4>email: wololo@gmail.com</h4>
-                  <p>phone: 0712345678</p>
-                </div>
-                <div className="remove-student-button">
-                  <button>remove</button>
-                </div>
-              </div>
-
-              <div className="student-main-container">
-                <div className="student-container">
-                  <h3>name: ian wololo</h3>
-                  <h4>email: wololo@gmail.com</h4>
-                  <p>phone: 0712345678</p>
-                </div>
-                <div className="remove-student-button">
-                  <button>remove</button>
-                </div>
-              </div>
-
-              <div className="student-main-container">
-                <div className="student-container">
-                  <h3>name: ian wololo</h3>
-                  <h4>email: wololo@gmail.com</h4>
-                  <p>phone: 0712345678</p>
-                </div>
-                <div className="remove-student-button">
-                  <button>remove</button>
+                  <button>Remove</button>
                 </div>
               </div>
             </div>

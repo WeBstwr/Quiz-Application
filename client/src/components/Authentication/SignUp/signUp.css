@@ -3,12 +3,12 @@
   display: flex;
   flex-direction: column;
   width: 50%;
-  height: 70vh;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  margin-top: 9rem;
+  margin-top: 6rem;
   border-radius: 10px;
+  flex-wrap: wrap;
 }
 
 .sign-up-form h2 {

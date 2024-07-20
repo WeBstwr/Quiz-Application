@@ -5,6 +5,8 @@ import "./signUp.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -35,6 +37,20 @@ const SignUp = () => {
           <h2>Sign Up</h2>
           {error && <p>{error}</p>}
           <div className="sign-up-email-password">
+            <input
+              type="text"
+              placeholder="Full Name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
+            />
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
+            />
             <input
               type="email"
               placeholder="Email"
