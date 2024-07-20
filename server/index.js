@@ -1,5 +1,6 @@
 import express from "express";
 import { config } from "dotenv";
+import usersRouter from "./routes/users.routes.js";
 
 config();
 
@@ -9,6 +10,9 @@ app.get("/", (req, res) => {
   res.send("welcome to this project");
 });
 
-app.listen(8000, () => {
-  console.log("Server is running on port 8000");
+app.use(express.json());
+app.use("/api/users", usersRouter);
+
+app.listen(8001, () => {
+  console.log("Server is running on port 8001");
 });
