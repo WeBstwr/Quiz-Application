@@ -1,9 +1,14 @@
 import { Router } from "express";
-import { registerAccount } from "../controllers/users.controllers.js";
+import {
+  registerAccount,
+  getAllStudents,
+} from "../controllers/users.controllers.js";
 import { validateUserInformation } from "../middlewares/users.middlewares.js";
+import verifyAdmin from "../middlewares/verifyAdmin.js";
 
 const router = Router();
 
 router.post("/register", validateUserInformation, registerAccount);
+router.get("/students", verifyAdmin, getAllStudents);
 
 export default router;
