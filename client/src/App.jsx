@@ -25,9 +25,9 @@ function App() {
           <Route path="/Questions" element={<Questions />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/Students" element={<Students />} />
-          <Route path="/Category" element={<Category />} />
-          <Route path="/AddQuestion" element={<AddQuestion />} />
+          <Route path="/admin/students" element={<Students />} />
+          <Route path="/admin/category" element={<Category />} />
+          <Route path="/admin/addQuestion" element={<AddQuestion />} />
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>

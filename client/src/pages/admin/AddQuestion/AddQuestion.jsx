@@ -29,13 +29,16 @@ function AddQuestion() {
   return (
     <section className="add-quiz-section">
       <div className="admin-navigation-section">
-        <Link to="/Students">
+        <Link to="/admin/authenticate">
+          <button>Authenticate User</button>
+        </Link>
+        <Link to="/admin/students">
           <button>Students</button>
         </Link>
-        <Link to="/Category">
+        <Link to="/admin/category">
           <button>Categories</button>
         </Link>
-        <Link to="/AddQuestion">
+        <Link to="/admin/addQuestion">
           <button>Add Question</button>
         </Link>
       </div>
