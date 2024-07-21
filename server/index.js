@@ -1,6 +1,8 @@
 import express from "express";
 import { config } from "dotenv";
+import cookieParser from "cookie-parser";
 import usersRouter from "./routes/users.routes.js";
+import authRouter from "./routes/auth.routes.js";
 import cors from "cors";
 
 config();
@@ -11,6 +13,7 @@ app.use(
   cors({
     origin: ["http://localhost:5173"],
     methods: ["POST", "GET", "PUT", "PATCH"],
+    credentials: true,
   }),
 );
 
@@ -20,7 +23,9 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use("/api/users", usersRouter);
+app.use("/api/auth", authRouter);
 
 app.listen(8001, () => {
   console.log("Server is running on port 8001");
