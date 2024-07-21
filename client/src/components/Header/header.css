@@ -42,6 +42,16 @@
   border: none;
 }
 
+.sign-out-btn {
+  border: none;
+  font-weight: 500;
+  background-color: var(--second-color);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
 .header-nav-toggle {
   display: none;
 }

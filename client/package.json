@@ -16,7 +16,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.25.0",
     "react-simple-toasts": "^5.10.0",
-    "rich-text-editor": "^7.3.0"
+    "rich-text-editor": "^7.3.0",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

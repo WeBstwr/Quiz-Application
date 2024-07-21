@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/authContext/authContext.jsx";
+import useUserStore from "../../store/userStore.js";
 import { doSignOut } from "../../firebase/auth.js";
 import "./header.css";
 
 function Header() {
   const navigate = useNavigate();
-  const userLoggedIn = useAuth();
+  const { user, clearUserInformation } = useUserStore();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleSignOut = async () => {
+    await doSignOut();
+    clearUserInformation();
+    navigate("/");
+  };
 
   return (
     <section className="header">
@@ -16,28 +22,19 @@ function Header() {
           <div className="main-header-links">
             <ol className={`header-nav-list ${menuOpen ? "open" : ""}`}>
               <li className="header-nav-item">
-                <Link to="/"></Link>
+                <Link to="/">Dashboard</Link>
               </li>
               <li className="header-nav-item">
-                <Link to="/">dashboard</Link>
+                <Link to="/Questions">Questions</Link>
               </li>
               <li className="header-nav-item">
-                <Link to="/Questions">questions</Link>
-              </li>
-              <li className="header-nav-item">
-                <Link to="/Profile">profile</Link>
+                <Link to="/Profile">Profile</Link>
               </li>
             </ol>
           </div>
           <div className="signing-buttons">
-            {userLoggedIn ? (
-              <button
-                onClick={() => {
-                  doSignOut().then(() => {
-                    navigate("/");
-                  });
-                }}
-              >
+            {user ? (
+              <button className="sign-out-btn" onClick={handleSignOut}>
                 Sign Out
               </button>
             ) : (

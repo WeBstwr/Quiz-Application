@@ -1,15 +1,14 @@
-import "./signIn.css";
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import {
-  doSignInWithEmailAndPassword,
-  doSignInWithGoogle,
-} from "../../../firebase/auth.js";
-import { useAuth } from "../../../context/authContext/authContext.jsx";
+import useUserStore from "../../../store/userStore.js";
+import toast from "react-simple-toasts";
+import "react-simple-toasts/dist/theme/dark.css";
 import { Link } from "react-router-dom";
+import { apiBase } from "../../../utils/config.js";
+import "./signIn.css";
 
 const SignIn = () => {
-  const userLoggedIn = useAuth();
+  const { user, changeUserInformation } = useUserStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
@@ -21,22 +20,31 @@ const SignIn = () => {
     setError("");
     try {
       setIsSigningIn(true);
-      await doSignInWithEmailAndPassword(email, password);
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsSigningIn(false);
-    }
-  };
+      const response = await fetch(`${apiBase}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ emailAddress: email, password }),
+      });
 
-  const onGoogleSignIn = async () => {
-    try {
-      setIsSigningIn(true);
-      await doSignInWithGoogle();
-      navigate("/");
+      const data = await response.json();
+
+      if (data.success) {
+        changeUserInformation(data.data);
+        toast("Welcome back!", { theme: "dark" });
+        if (data.data.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+      } else {
+        toast(data.message, { theme: "dark" });
+        setError(data.message);
+      }
     } catch (error) {
-      setError(error.message);
+      setError("Error signing in. Please try again later.");
+      toast("Error signing in. Please try again later.", { theme: "dark" });
     } finally {
       setIsSigningIn(false);
     }
@@ -44,7 +52,6 @@ const SignIn = () => {
 
   return (
     <>
-      {userLoggedIn && <Navigate to="/Profile" replace />}
       <div className="form-section">
         <form onSubmit={onSubmit}>
           <h2>Sign In</h2>
@@ -68,13 +75,6 @@ const SignIn = () => {
           <div className="sign-in-buttons">
             <button type="submit" disabled={isSigningIn}>
               {isSigningIn ? "Signing In..." : "Sign In"}
-            </button>
-            <button
-              type="button"
-              onClick={onGoogleSignIn}
-              disabled={isSigningIn}
-            >
-              {isSigningIn ? "Signing In..." : "Sign In with Google"}
             </button>
           </div>
           <div className="form-link">

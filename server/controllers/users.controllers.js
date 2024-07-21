@@ -5,8 +5,14 @@ const client = new PrismaClient();
 
 export const registerAccount = async (req, res) => {
   try {
-    const { fullName, emailAddress, phoneNumber, approvedAccount, password } =
-      req.body;
+    const {
+      fullName,
+      emailAddress,
+      phoneNumber,
+      approvedAccount,
+      role,
+      password,
+    } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
     await client.user.create({
       data: {
@@ -15,6 +21,7 @@ export const registerAccount = async (req, res) => {
         phoneNumber: phoneNumber,
         password: hashedPassword,
         approvedAccount: approvedAccount,
+        role: role,
       },
     });
     res
