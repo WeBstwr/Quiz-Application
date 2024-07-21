@@ -48,6 +48,11 @@ export const getAllStudents = async (req, res) => {
   try {
     const users = await client.user.findMany({
       where: { approvedAccount: true },
+      select: {
+        fullName: true,
+        emailAddress: true,
+        phoneNumber: true,
+      },
     });
     const usersWithBigIntAsString = users.map((user) =>
       convertBigIntToString(user),

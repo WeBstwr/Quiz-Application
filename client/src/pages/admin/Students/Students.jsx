@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./students.css";
+import { apiBase } from "../../../utils/config.js";
+import toast from "react-toastify";
+import "react-simple-toasts/dist/theme/dark.css";
+import "react-simple-toasts/dist/theme/success.css";
+import "react-simple-toasts/dist/theme/failure.css";
 
-function Students() {
+const Students = () => {
+  const [loading, setLoading] = useState(true);
+  const [students, setStudents] = useState([]);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await fetch(`${apiBase}/api/users/students`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await response.json();
+        if (data.success) {
+          setStudents(data.data);
+        } else {
+          console.error(data.message);
+        }
+      } catch (e) {
+        toast(e.message, { theme: "failure" });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStudents();
+  }, []);
+
   return (
     <>
       <section className="admin-section">
@@ -24,22 +56,27 @@ function Students() {
           <div className="admin-students-section">
             <h2>Your Students</h2>
             <div className="admin-students-container">
-              <div className="student-main-container">
-                <div className="student-container">
-                  <h3>Name: Ian Wololo</h3>
-                  <h4>Email: wololo@gmail.com</h4>
-                  <p>Phone: 0712345678</p>
+              {students.map((student) => (
+                <div
+                  className="student-main-container"
+                  key={student.emailAddress}
+                >
+                  <div className="student-container">
+                    <h3>Name: {student.fullName}</h3>
+                    <h4>Email: {student.emailAddress}</h4>
+                    <p>Phone: {student.phoneNumber}</p>
+                  </div>
+                  <div className="remove-student-button">
+                    <button>Remove</button>
+                  </div>
                 </div>
-                <div className="remove-student-button">
-                  <button>Remove</button>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
     </>
   );
-}
+};
 
 export default Students;

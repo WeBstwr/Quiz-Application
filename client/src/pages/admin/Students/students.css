@@ -40,13 +40,14 @@
 .admin-students-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 3rem;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .student-main-container {
-  width: 40%;
+  width: 40rem;
 }
 
 .remove-student-button {
