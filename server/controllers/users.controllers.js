@@ -99,3 +99,18 @@ export const approveUser = async (req, res) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
+export const declineUser = async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const user = await client.user.delete({
+      where: { id: userId },
+    });
+    res
+      .status(200)
+      .json({ success: true, message: "Account declined successfully" });
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};

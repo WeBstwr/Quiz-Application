@@ -35,8 +35,9 @@ function Admin() {
     fetchUnapprovedStudents();
   }, []);
 
-  const handleVerify = async (id) => {
+  const approveStudent = async (id) => {
     try {
+      setLoading(true);
       const response = await fetch(`${apiBase}/api/users/approve/${id}`, {
         method: "PATCH",
         credentials: "include",
@@ -45,13 +46,15 @@ function Admin() {
       if (data.success) {
         toast("User approved successfully", { theme: "success" });
         setStudents((prevStudents) =>
-          prevStudents.filter((student) => student.id !== id)
+          prevStudents.filter((student) => student.id !== id),
         );
       } else {
-        toast(data.message, { theme: "failure" });
+        toast("There was an error approving the account", { theme: "failure" });
       }
     } catch (e) {
       toast(e.message, { theme: "failure" });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,18 +86,20 @@ function Admin() {
             </h2>
             <div className="authentication-container">
               {students.map((student) => (
-                <div
-                  className="student-main-container-auth"
-                  key={student.id}
-                >
+                <div className="student-main-container-auth" key={student.id}>
                   <div className="student-container-auth">
                     <h3>Name: {student.fullName}</h3>
                     <h4>Email: {student.emailAddress}</h4>
                     <p>Phone: {student.phoneNumber}</p>
                   </div>
                   <div className="student-buttons-auth">
-                    <button className="verify" onClick={() => handleVerify(student.id)}>Verify</button>
-                    <button className="decline">Remove</button>
+                    <button
+                      className="verify"
+                      onClick={() => approveStudent(student.id)}
+                    >
+                      Verify
+                    </button>
+                    <button className="decline">Decline</button>
                   </div>
                 </div>
               ))}
