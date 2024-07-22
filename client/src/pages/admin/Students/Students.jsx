@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./students.css";
 import { apiBase } from "../../../utils/config.js";
-import toast from "react-toastify";
+import toast from "react-simple-toasts";
 import "react-simple-toasts/dist/theme/dark.css";
 import "react-simple-toasts/dist/theme/success.css";
 import "react-simple-toasts/dist/theme/failure.css";
@@ -23,7 +23,8 @@ const Students = () => {
         if (data.success) {
           setStudents(data.data);
         } else {
-          console.error(data.message);
+          setError(data.message);
+          return toast(error, { theme: "failure" });
         }
       } catch (e) {
         toast(e.message, { theme: "failure" });
@@ -41,7 +42,7 @@ const Students = () => {
         <div className="admin-main-container">
           <div className="admin-navigation-section">
             <Link to="/admin/authenticate">
-              <button>Authenticate User</button>
+              <button>Authenticate Student</button>
             </Link>
             <Link to="/admin/students">
               <button>Students</button>
@@ -54,7 +55,13 @@ const Students = () => {
             </Link>
           </div>
           <div className="admin-students-section">
-            <h2>Your Students</h2>
+            <h2>
+              {loading
+                ? "Loading Students..."
+                : students.length > 0
+                  ? "Your Students"
+                  : "No students Found"}
+            </h2>
             <div className="admin-students-container">
               {students.map((student) => (
                 <div

@@ -59,7 +59,25 @@ export const getAllStudents = async (req, res) => {
     );
     res.status(200).json({ success: true, data: usersWithBigIntAsString });
   } catch (e) {
-    console.log(e.message);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+export const getAllUnApprovedStudents = async (req, res) => {
+  try {
+    const users = await client.user.findMany({
+      where: { approvedAccount: false },
+      select: {
+        fullName: true,
+        emailAddress: true,
+        phoneNumber: true,
+      },
+    });
+    const usersWithBigIntAsString = users.map((user) =>
+      convertBigIntToString(user),
+    );
+    res.status(200).json({ success: true, data: usersWithBigIntAsString });
+  } catch (e) {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
