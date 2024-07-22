@@ -29,7 +29,7 @@ function AddQuestion() {
   return (
     <section className="add-quiz-section">
       <div className="admin-navigation-section">
-        <Link to="/admin/authenticate">
+        <Link to="/admin">
           <button>Authenticate User</button>
         </Link>
         <Link to="/admin/students">

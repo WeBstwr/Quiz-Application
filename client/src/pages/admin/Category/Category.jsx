@@ -9,7 +9,7 @@ function Category() {
       <section className="admin-section">
         <div className="admin-main-container">
           <div className="admin-navigation-section">
-            <Link to="/admin/authenticate">
+            <Link to="/admin">
               <button>Authenticate User</button>
             </Link>
             <Link to="/admin/students">
