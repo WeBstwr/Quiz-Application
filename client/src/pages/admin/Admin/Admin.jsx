@@ -58,6 +58,29 @@ function Admin() {
     }
   };
 
+  const declineStudent = async (id) => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${apiBase}/api/users/decline/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      const data = await response.json();
+      if (data.success) {
+        toast("User declined successfully", { theme: "success" });
+        setStudents((prevStudents) =>
+          prevStudents.filter((student) => student.id !== id),
+        );
+      } else {
+        toast("There was an error declining the account", { theme: "failure" });
+      }
+    } catch (e) {
+      toast(e.message, { theme: "failure" });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <section className="home-admin-section">
@@ -99,7 +122,12 @@ function Admin() {
                     >
                       Verify
                     </button>
-                    <button className="decline">Decline</button>
+                    <button
+                      className="decline"
+                      onClick={() => declineStudent(student.id)}
+                    >
+                      Decline
+                    </button>
                   </div>
                 </div>
               ))}
