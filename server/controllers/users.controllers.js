@@ -68,15 +68,33 @@ export const getAllUnApprovedStudents = async (req, res) => {
     const users = await client.user.findMany({
       where: { approvedAccount: false },
       select: {
+        id: true,
         fullName: true,
         emailAddress: true,
         phoneNumber: true,
+        approvedAccount: true,
       },
     });
     const usersWithBigIntAsString = users.map((user) =>
       convertBigIntToString(user),
     );
     res.status(200).json({ success: true, data: usersWithBigIntAsString });
+  } catch (e) {
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+export const approveUser = async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const user = await client.user.update({
+      where: { id: userId },
+      data: { approvedAccount: true },
+    });
+    const userWithBigIntAsString = convertBigIntToString(user);
+    res
+      .status(200)
+      .json({ success: true, message: "Account approved successfully" });
   } catch (e) {
     res.status(500).json({ success: false, message: "Server Error" });
   }

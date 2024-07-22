@@ -54,8 +54,18 @@ function AddQuestion() {
             required
           />
         </div>
+
         <div className="fill-in-space">
-          <label>Number:</label>
+          <label>Lecturer's Name:</label>
+          <input
+            type="text"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+          />
+        </div>
+        <div className="fill-in-space">
+          <label>Question Number:</label>
           <input
             type="number"
             value={number}
