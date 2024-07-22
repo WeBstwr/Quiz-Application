@@ -9,8 +9,8 @@ import "react-simple-toasts/dist/theme/failure.css";
 
 function Admin() {
   const [students, setStudents] = useState([]);
-  const [loading, setLoading] = useState([]);
-  const [error, setError] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUnapprovedStudents = async () => {
@@ -23,7 +23,7 @@ function Admin() {
         if (data.success) {
           setStudents(data.data);
         } else {
-          console.error(data.message);
+          setError(data.message);
         }
       } catch (e) {
         toast(e.message, { theme: "failure" });
@@ -34,6 +34,26 @@ function Admin() {
 
     fetchUnapprovedStudents();
   }, []);
+
+  const handleVerify = async (id) => {
+    try {
+      const response = await fetch(`${apiBase}/api/users/approve/${id}`, {
+        method: "PATCH",
+        credentials: "include",
+      });
+      const data = await response.json();
+      if (data.success) {
+        toast("User approved successfully", { theme: "success" });
+        setStudents((prevStudents) =>
+          prevStudents.filter((student) => student.id !== id)
+        );
+      } else {
+        toast(data.message, { theme: "failure" });
+      }
+    } catch (e) {
+      toast(e.message, { theme: "failure" });
+    }
+  };
 
   return (
     <>
@@ -65,7 +85,7 @@ function Admin() {
               {students.map((student) => (
                 <div
                   className="student-main-container-auth"
-                  key={student.emailAddress}
+                  key={student.id}
                 >
                   <div className="student-container-auth">
                     <h3>Name: {student.fullName}</h3>
@@ -73,7 +93,7 @@ function Admin() {
                     <p>Phone: {student.phoneNumber}</p>
                   </div>
                   <div className="student-buttons-auth">
-                    <button className="verify">Verify</button>
+                    <button className="verify" onClick={() => handleVerify(student.id)}>Verify</button>
                     <button className="decline">Remove</button>
                   </div>
                 </div>
