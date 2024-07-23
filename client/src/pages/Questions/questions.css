@@ -31,21 +31,6 @@
   padding: 2rem;
 }
 
-.questions-options {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: space-around;
-}
-
-.quiestions-options-part {
-  display: flex;
-  align-items: center;
-  text-transform: capitalize;
-  gap: 2rem;
-}
-
 .questions-options button {
   border: none;
   width: 18rem;
@@ -53,8 +38,53 @@
   text-transform: capitalize;
   padding: 3px;
   border-radius: 5px;
-  background-color: var(--fourth-color);
   cursor: pointer;
+}
+
+.questions-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.option-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+}
+
+.option-label {
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.questions-options button {
+  margin: 5px;
+  padding: 2px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.questions-options button.selected {
+  background-color: var(--fourth-color);
+  border-color: var(--first-color);
+  color: var(--first-color);
+}
+
+.questions-options button:hover {
+  background-color: var(--fourth-color);
+}
+
+.button-next-previous {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .button-next-previous {

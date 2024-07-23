@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useQuestionStore from "../../../store/questionStore.js";
 import "./addQuestion.css";
 
 function AddQuestion() {
@@ -7,6 +8,7 @@ function AddQuestion() {
   const [number, setNumber] = useState("");
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(["", "", "", ""]);
+  const addQuestion = useQuestionStore((state) => state.addQuestion);
 
   const handleAnswerChange = (index, value) => {
     const newAnswers = [...answers];
@@ -22,7 +24,7 @@ function AddQuestion() {
       question,
       answers,
     };
-
+    addQuestion(newQuestion);
     console.log(newQuestion);
   };
 
@@ -46,7 +48,7 @@ function AddQuestion() {
       <form className="quiz-container" onSubmit={handleSubmit}>
         <h2>Add Question</h2>
         <div className="fill-in-space">
-          <label>Category:</label>
+          <label>Topic Title:</label>
           <input
             type="text"
             value={category}
@@ -55,15 +57,6 @@ function AddQuestion() {
           />
         </div>
 
-        <div className="fill-in-space">
-          <label>Lecturer's Name:</label>
-          <input
-            type="text"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          />
-        </div>
         <div className="fill-in-space">
           <label>Question Number:</label>
           <input
@@ -84,8 +77,7 @@ function AddQuestion() {
         </div>
         <div className="choices-section">
           <label className="answers-area">
-            {" "}
-            <h3>Answers:</h3>{" "}
+            <h3>Answers:</h3>
           </label>
           <div className="answers-container">
             {["A", "B", "C", "D"].map((label, index) => (
