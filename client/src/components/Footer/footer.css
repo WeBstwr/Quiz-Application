@@ -1,0 +1,16 @@
+.footer {
+  display: grid;
+  place-content: center;
+  background-color: var(--third-color);
+  padding: 2.5rem;
+  margin-top: 9rem;
+}
+
+.footer p {
+  letter-spacing: 1.5px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}

@@ -12,6 +12,7 @@ import Admin from "./pages/admin/Admin/Admin";
 import Students from "./pages/admin/Students/Students";
 import Category from "./pages/admin/Category/Category";
 import AddQuestion from "./pages/admin/AddQuestion/AddQuestion";
+import Footer from "./components/Footer/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
           <Route path="/admin/category" element={<Category />} />
           <Route path="/admin/addQuestion" element={<AddQuestion />} />
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
       </BrowserRouter>
     </>
   );

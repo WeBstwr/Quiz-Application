@@ -1,7 +1,6 @@
 import React from "react";
 import Dashboard from "../../Dashboard/Dashboard";
 import { Link } from "react-router-dom";
-// import "./category.css";
 
 function Category() {
   return (
