@@ -25,9 +25,6 @@ function Header() {
                 <Link to="/">Dashboard</Link>
               </li>
               <li className="header-nav-item">
-                <Link to="/Questions">Questions</Link>
-              </li>
-              <li className="header-nav-item">
                 <Link to="/Profile">Profile</Link>
               </li>
             </ol>

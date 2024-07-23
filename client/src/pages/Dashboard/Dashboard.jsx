@@ -25,9 +25,6 @@ function Dashboard() {
               <h2>{topic.title}</h2>
               <h3>{topic.lecturer}</h3>
             </div>
-            <div className="topic-description">
-              <p>Number of Questions: {topic.numberOfQuestions}</p>
-            </div>
           </div>
         ))}
       </div>

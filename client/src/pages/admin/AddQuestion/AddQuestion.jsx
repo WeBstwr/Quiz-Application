@@ -11,6 +11,8 @@ function AddQuestion() {
   const [number, setNumber] = useState("");
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(["", "", "", ""]);
+  const [correctAnswer, setCorrectAnswer] = useState("");
+
   const addQuestion = useQuestionStore((state) => state.addQuestion);
   const addTopic = useQuestionStore((state) => state.addTopic);
   const topics = useQuestionStore((state) => state.topics);
@@ -37,14 +39,14 @@ function AddQuestion() {
         id: number,
         text: question,
         options: answers,
-        answer: answers[0],
+        answer: correctAnswer,
       });
     } else {
       addQuestion(topic.id, {
         id: number,
         text: question,
         options: answers,
-        answer: answers[0],
+        answer: correctAnswer,
       });
     }
 
@@ -55,6 +57,7 @@ function AddQuestion() {
     setNumber("");
     setQuestion("");
     setAnswers(["", "", "", ""]);
+    setCorrectAnswer("");
   };
 
   return (
@@ -131,6 +134,21 @@ function AddQuestion() {
               </div>
             ))}
           </div>
+        </div>
+        <div className="fill-in-space">
+          <label>Correct Answer:</label>
+          <select
+            value={correctAnswer}
+            onChange={(e) => setCorrectAnswer(e.target.value)}
+            required
+          >
+            <option value="">Select correct answer</option>
+            {answers.map((answer, index) => (
+              <option key={index} value={answer}>
+                {answer}
+              </option>
+            ))}
+          </select>
         </div>
         <button className="submit-btn" type="submit">
           Add Question

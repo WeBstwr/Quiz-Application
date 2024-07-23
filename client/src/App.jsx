@@ -6,6 +6,7 @@ import SignUp from "./components/Authentication/SignUp/SignUp";
 import SignIn from "./components/Authentication/SignIn/SignIn";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Questions from "./pages/Questions/Questions";
+import Results from "./pages/Questions/Results";
 import Profile from "./pages/Profile/Profile";
 import Admin from "./pages/admin/Admin/Admin";
 import Students from "./pages/admin/Students/Students";
@@ -26,6 +27,7 @@ function App() {
             path="/Questions/:topicId/:topicTitle"
             element={<Questions />}
           />
+          <Route path="/Results" element={<Results />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/students" element={<Students />} />

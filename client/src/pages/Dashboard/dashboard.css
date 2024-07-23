@@ -44,9 +44,3 @@
   text-transform: capitalize;
   padding: 2rem 0;
 }
-
-.topic-description p {
-  font-size: 1.8rem;
-  letter-spacing: 2px;
-  line-height: 1.5rem;
-}

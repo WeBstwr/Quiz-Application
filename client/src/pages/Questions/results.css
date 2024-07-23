@@ -1,0 +1,27 @@
+.results-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  margin: 8rem auto;
+  background-color: var(--fourth-color);
+  flex-wrap: wrap;
+  border-radius: 10px;
+  box-shadow: -8px 10px 12px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -8px 10px 12px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -8px 10px 12px 0px rgba(0, 0, 0, 0.75);
+}
+
+.results-section h2 {
+  font-size: 4rem;
+  color: var(--first-color);
+  text-transform: capitalize;
+  padding: 4rem 0;
+}
+
+.results-section p {
+  font-size: 2.5rem;
+  text-transform: capitalize;
+  padding-bottom: 4rem;
+}

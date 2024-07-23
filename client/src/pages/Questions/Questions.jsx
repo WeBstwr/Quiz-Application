@@ -1,17 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useQuestionStore from "../../store/questionStore.js";
 import "./questions.css";
 
 function Questions() {
   const { topicId, topicTitle } = useParams();
+  const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [score, setScore] = useState(null);
   const questions = useQuestionStore((state) => state.questions[topicId] || []);
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    } else {
+      let correctAnswersCount = 0;
+      questions.forEach((question) => {
+        if (selectedAnswers[question.id] === question.answer) {
+          correctAnswersCount++;
+        }
+      });
+      setScore(correctAnswersCount);
+
+      navigate("/Results", {
+        state: { score: correctAnswersCount, totalQuestions: questions.length },
+      });
     }
   };
 
@@ -73,16 +87,15 @@ function Questions() {
               >
                 Previous
               </button>
-              <button
-                onClick={handleNextQuestion}
-                disabled={currentQuestionIndex === questions.length - 1}
-              >
-                Next
+              <button onClick={handleNextQuestion}>
+                {currentQuestionIndex === questions.length - 1
+                  ? "Finish"
+                  : "Next"}
               </button>
             </div>
           </div>
         ) : (
-          <p>No questions available for this topic.</p>
+          <h2>No questions available for this topic.</h2>
         )}
       </div>
     </section>
