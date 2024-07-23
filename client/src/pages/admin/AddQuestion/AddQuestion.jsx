@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import toast from "react-simple-toasts";
+import "react-simple-toasts/dist/theme/success.css";
 import useQuestionStore from "../../../store/questionStore.js";
 import "./addQuestion.css";
 
 function AddQuestion() {
   const [category, setCategory] = useState("");
+  const [lecturer, setLecturer] = useState("");
   const [number, setNumber] = useState("");
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(["", "", "", ""]);
   const addQuestion = useQuestionStore((state) => state.addQuestion);
+  const addTopic = useQuestionStore((state) => state.addTopic);
+  const topics = useQuestionStore((state) => state.topics);
 
   const handleAnswerChange = (index, value) => {
     const newAnswers = [...answers];
@@ -18,14 +23,38 @@ function AddQuestion() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newQuestion = {
-      category,
-      number,
-      question,
-      answers,
-    };
-    addQuestion(newQuestion);
-    console.log(newQuestion);
+    const topic = topics.find((t) => t.title === category);
+
+    if (!topic) {
+      const newTopic = {
+        id: topics.length + 1,
+        title: category,
+        lecturer: lecturer || "Unknown",
+        numberOfQuestions: 1,
+      };
+      addTopic(newTopic);
+      addQuestion(newTopic.id, {
+        id: number,
+        text: question,
+        options: answers,
+        answer: answers[0],
+      });
+    } else {
+      addQuestion(topic.id, {
+        id: number,
+        text: question,
+        options: answers,
+        answer: answers[0],
+      });
+    }
+
+    toast("Question added successfully", { theme: "success" });
+
+    setCategory("");
+    setLecturer("");
+    setNumber("");
+    setQuestion("");
+    setAnswers(["", "", "", ""]);
   };
 
   return (
@@ -54,6 +83,15 @@ function AddQuestion() {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             required
+          />
+        </div>
+
+        <div className="fill-in-space">
+          <label>Lecturer:</label>
+          <input
+            type="text"
+            value={lecturer}
+            onChange={(e) => setLecturer(e.target.value)}
           />
         </div>
 

@@ -1,48 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import useQuestionStore from "../../store/questionStore.js";
 import "./questions.css";
 
-const dummyQuestions = {
-  1: [
-    {
-      id: 1,
-      text: "What is 2 + 2?",
-      options: ["3", "4", "5", "6"],
-      answer: "4",
-    },
-    {
-      id: 2,
-      text: "What is 3 + 5?",
-      options: ["7", "8", "9", "10"],
-      answer: "8",
-    },
-  ],
-  2: [
-    {
-      id: 1,
-      text: "What is the chemical symbol for water?",
-      options: ["H2O", "O2", "H2", "CO2"],
-      answer: "H2O",
-    },
-    {
-      id: 2,
-      text: "What is the speed of light?",
-      options: ["300,000 km/s", "150,000 km/s", "450,000 km/s", "600,000 km/s"],
-      answer: "300,000 km/s",
-    },
-  ],
-};
-
 function Questions() {
-  const { topicId } = useParams();
-  const [questions, setQuestions] = useState([]);
+  const { topicId, topicTitle } = useParams();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
-
-  useEffect(() => {
-    const fetchedQuestions = dummyQuestions[topicId] || [];
-    setQuestions(fetchedQuestions);
-  }, [topicId]);
+  const questions = useQuestionStore((state) => state.questions[topicId] || []);
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
@@ -65,7 +30,7 @@ function Questions() {
   return (
     <section className="questions">
       <div className="questions-main-container">
-        <h2>Topic Title</h2>
+        <h2>Topic Title: {decodeURIComponent(topicTitle)}</h2>
         {currentQuestion ? (
           <div className="questions-container">
             <div className="question-item">

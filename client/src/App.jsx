@@ -22,8 +22,11 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
-          <Route path="/questions/:topicId" element={<Questions />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/Questions/:topicId/:topicTitle"
+            element={<Questions />}
+          />
+          <Route path="/Profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/students" element={<Students />} />
           <Route path="/admin/category" element={<Category />} />

@@ -1,38 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import useQuestionStore from "../../store/questionStore.js";
 import "./dashboard.css";
-
-const dummyTopics = [
-  {
-    id: 1,
-    title: "Mathematics",
-    lecturer: "Prof. John Doe",
-    numberOfQuestions: 10,
-  },
-  {
-    id: 2,
-    title: "Science",
-    lecturer: "Dr. Jane Smith",
-    numberOfQuestions: 8,
-  },
-];
 
 function Dashboard() {
   const navigate = useNavigate();
+  const topics = useQuestionStore((state) => state.topics);
 
-  const handleTopicClick = (topicId) => {
-    navigate(`/questions/${topicId}`);
+  const handleTopicClick = (topicId, title) => {
+    navigate(`/Questions/${topicId}/${encodeURIComponent(title)}`);
   };
 
   return (
     <section className="dashboard">
       <h1>Topics</h1>
       <div className="topics-area">
-        {dummyTopics.map((topic) => (
+        {topics.map((topic) => (
           <div
             className="topics-container"
             key={topic.id}
-            onClick={() => handleTopicClick(topic.id)}
+            onClick={() => handleTopicClick(topic.id, topic.title)}
           >
             <div className="topic-title">
               <h2>{topic.title}</h2>

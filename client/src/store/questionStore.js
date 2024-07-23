@@ -1,14 +1,24 @@
-// src/store/questionStore.js
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 const questionStore = (set) => ({
-  questions: [],
-  currentQuestionIndex: 0,
-  addQuestion: (question) => {
+  questions: {},
+  topics: [],
+  addQuestion: (topicId, question) => {
     set((state) => ({
-      questions: [...state.questions, question],
+      questions: {
+        ...state.questions,
+        [topicId]: [...(state.questions[topicId] || []), question],
+      },
     }));
+  },
+  addTopic: (topic) => {
+    set((state) => ({
+      topics: [...state.topics, topic],
+    }));
+  },
+  getTopicById: (topicId) => {
+    return (get().topics || []).find((topic) => topic.id === topicId);
   },
   setQuestions: (newQuestions) => {
     set(() => ({ questions: newQuestions }));
@@ -16,26 +26,10 @@ const questionStore = (set) => ({
   clearQuestions: () => {
     set(() => ({ questions: [] }));
   },
-  nextQuestion: () => {
-    set((state) => ({
-      currentQuestionIndex:
-        state.currentQuestionIndex < state.questions.length - 1
-          ? state.currentQuestionIndex + 1
-          : state.currentQuestionIndex,
-    }));
-  },
-  previousQuestion: () => {
-    set((state) => ({
-      currentQuestionIndex:
-        state.currentQuestionIndex > 0
-          ? state.currentQuestionIndex - 1
-          : state.currentQuestionIndex,
-    }));
-  },
 });
 
 const useQuestionStore = create(
-  devtools(persist(questionStore, { name: "quiz-app-questions" })),
+  devtools(persist(questionStore, { name: "quiz-app" })),
 );
 
 export default useQuestionStore;
