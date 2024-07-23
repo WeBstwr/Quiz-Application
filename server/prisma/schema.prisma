@@ -18,8 +18,22 @@ model User {
   approvedAccount Boolean? @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())@updatedAt
+  addedQuestions Questions[]
 
   @@map("students_table")
+}
+
+model Questions {
+  id String @id @default(uuid())
+  topicTitle String
+  questionNum Int
+  question String
+  choices String[]
+  correctAnswer String
+  adminId String
+  admin User @relation(fields: [adminId], references: [id])
+
+  @@map("added_questions_table")
 }
 
 datasource db {
