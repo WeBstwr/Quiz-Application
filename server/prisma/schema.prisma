@@ -14,16 +14,17 @@ datasource db {
 }
 
 model User {
-  id              String      @id @default(uuid())
+  id              String               @id @default(uuid())
   fullName        String
-  phoneNumber     BigInt      @unique
-  emailAddress    String      @unique
+  phoneNumber     BigInt               @unique
+  emailAddress    String               @unique
   password        String
-  role            String?     @default("user")
-  approvedAccount Boolean?    @default(false)
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @default(now()) @updatedAt
+  role            String?              @default("user")
+  approvedAccount Boolean?             @default(false)
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @default(now()) @updatedAt
   addedQuestions  Questions[]
+  participation   StudentParticipation[]
 
   @@map("students_table")
 }
@@ -47,12 +48,27 @@ model Questions {
 }
 
 model Topic {
-  id         String      @id @default(uuid())
+  id         String                @id @default(uuid())
   title      String
   lecturer   String
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @default(now()) @updatedAt
+  createdAt  DateTime              @default(now())
+  updatedAt  DateTime              @default(now()) @updatedAt
   questions  Questions[]
+  participation   StudentParticipation[]
 
   @@map("topics_table")
+}
+
+model StudentParticipation {
+  id              String   @id @default(uuid())
+  studentId       String
+  topicId         String
+  questionsDone   Int
+  results         Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now()) @updatedAt
+  student         User     @relation(fields: [studentId], references: [id])
+  topic           Topic    @relation(fields: [topicId], references: [id])
+
+  @@map("students_participation_table")
 }
