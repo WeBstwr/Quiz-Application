@@ -63,6 +63,8 @@ model StudentParticipation {
   id              String   @id @default(uuid())
   studentId       String
   topicId         String
+  topicName       String?
+  studentEmail    String?
   questionsDone   Int
   results         Float
   createdAt       DateTime @default(now())
