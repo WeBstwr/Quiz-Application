@@ -9,29 +9,32 @@ generator client {
 }
 
 model User {
-  id String @id @default(uuid())
-  fullName String
-  phoneNumber BigInt @unique
-  emailAddress String @unique
-  password String
-  role String? @default("user")
-  approvedAccount Boolean? @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())@updatedAt
-  addedQuestions Questions[]
+  id              String      @id @default(uuid())
+  fullName        String
+  phoneNumber     BigInt      @unique
+  emailAddress    String      @unique
+  password        String
+  role            String?     @default("user")
+  approvedAccount Boolean?    @default(false)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @default(now()) @updatedAt
+  addedQuestions  Questions[]
 
   @@map("students_table")
 }
 
 model Questions {
-  id String @id @default(uuid())
-  topicTitle String
-  questionNum Int
-  question String
-  choices String[]
+  id            String   @id @default(uuid())
+  topicTitle    String
+  lecturerName  String
+  questionNum   Int
+  question      String
+  choices       String[]
   correctAnswer String
-  adminId String
-  admin User @relation(fields: [adminId], references: [id])
+  adminId       String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+  admin         User     @relation(fields: [adminId], references: [id])
 
   @@map("added_questions_table")
 }

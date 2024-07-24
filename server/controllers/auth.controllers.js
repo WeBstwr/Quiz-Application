@@ -31,7 +31,7 @@ export const login = async (req, res) => {
         phoneNumber: user.phoneNumber.toString(),
       };
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+        expiresIn: "10h",
       });
       return res
         .cookie("access_token", token)

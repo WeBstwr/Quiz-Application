@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken";
+
 const verifyAdmin = (req, res, next) => {
   const accessToken = req.cookies.access_token;
-  if (!accessToken)
+  if (!accessToken) {
     return res.status(401).json({ success: false, message: "Unauthorized" });
+  }
 
   jwt.verify(accessToken, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
@@ -14,7 +16,9 @@ const verifyAdmin = (req, res, next) => {
         message: "You are not permitted to perform this operation",
       });
     }
+    req.user = decoded;
     next();
   });
 };
+
 export default verifyAdmin;
