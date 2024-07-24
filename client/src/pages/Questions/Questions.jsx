@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useQuestionStore from "../../store/questionStore.js";
+import { apiBase } from "../../utils/config.js";
 import "./questions.css";
 
 function Questions() {
@@ -9,7 +10,33 @@ function Questions() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [score, setScore] = useState(null);
+
   const questions = useQuestionStore((state) => state.questions[topicId] || []);
+  const setQuestions = useQuestionStore((state) => state.setQuestions);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const response = await fetch(
+          `${apiBase}/api/questions/${topicId}/questions`,
+          {
+            method: "GET",
+            credentials: "include",
+          },
+        );
+        const result = await response.json();
+        if (result.success) {
+          setQuestions(topicId, result.data);
+        } else {
+          console.log("Error fetching questions:", result.message);
+        }
+      } catch (error) {
+        console.log("Failed to fetch questions", error);
+      }
+    };
+
+    fetchQuestions();
+  }, [topicId, setQuestions]);
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
@@ -17,7 +44,7 @@ function Questions() {
     } else {
       let correctAnswersCount = 0;
       questions.forEach((question) => {
-        if (selectedAnswers[question.id] === question.answer) {
+        if (selectedAnswers[question.id] === question.correctAnswer) {
           correctAnswersCount++;
         }
       });
@@ -54,27 +81,22 @@ function Questions() {
                 </h4>
               </div>
               <div className="question-text">
-                <p>{currentQuestion.text}</p>
+                <p>{currentQuestion.question}</p>
               </div>
               <div className="questions-options">
-                {["A", "B", "C", "D"].map((label, index) => (
+                {currentQuestion.choices.map((choice, index) => (
                   <div key={index} className="option-container">
-                    <span className="option-label">{label}:</span>
                     <button
                       className={
-                        selectedAnswers[currentQuestion.id] ===
-                        currentQuestion.options[index]
+                        selectedAnswers[currentQuestion.id] === choice
                           ? "selected"
                           : ""
                       }
                       onClick={() =>
-                        handleOptionClick(
-                          currentQuestion.id,
-                          currentQuestion.options[index],
-                        )
+                        handleOptionClick(currentQuestion.id, choice)
                       }
                     >
-                      {currentQuestion.options[index]}
+                      {choice}
                     </button>
                   </div>
                 ))}

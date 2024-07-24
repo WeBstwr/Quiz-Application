@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useQuestionStore from "../../store/questionStore.js";
+import { apiBase } from "../../utils/config.js";
 import "./dashboard.css";
 
 function Dashboard() {
   const navigate = useNavigate();
   const topics = useQuestionStore((state) => state.topics);
+  const setTopics = useQuestionStore((state) => state.setTopics);
+
+  useEffect(() => {
+    const fetchTopics = async () => {
+      try {
+        const response = await fetch(`${apiBase}/api/topics`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const result = await response.json();
+        if (result.success) {
+          setTopics(result.data);
+        } else {
+          console.log("Error fetching topics");
+        }
+      } catch (error) {
+        console.error("Failed to fetch topics", error);
+      }
+    };
+
+    fetchTopics();
+  }, [setTopics]);
 
   const handleTopicClick = (topicId, title) => {
     navigate(`/Questions/${topicId}/${encodeURIComponent(title)}`);

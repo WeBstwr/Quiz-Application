@@ -8,6 +8,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 model User {
   id              String      @id @default(uuid())
   fullName        String
@@ -26,6 +31,7 @@ model User {
 model Questions {
   id            String   @id @default(uuid())
   topicTitle    String
+  topicId       String?
   lecturerName  String
   questionNum   Int
   question      String
@@ -35,11 +41,18 @@ model Questions {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @default(now()) @updatedAt
   admin         User     @relation(fields: [adminId], references: [id])
+  topic         Topic?   @relation(fields: [topicId], references: [id])
 
   @@map("added_questions_table")
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+model Topic {
+  id         String      @id @default(uuid())
+  title      String
+  lecturer   String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now()) @updatedAt
+  questions  Questions[]
+
+  @@map("topics_table")
 }

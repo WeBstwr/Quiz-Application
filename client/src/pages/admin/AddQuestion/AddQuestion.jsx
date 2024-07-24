@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import toast from "react-simple-toasts";
 import "react-simple-toasts/dist/theme/success.css";
 import useQuestionStore from "../../../store/questionStore.js";
+import { apiBase } from "../../../utils/config.js";
 import "./addQuestion.css";
 
 function AddQuestion() {
@@ -14,7 +15,6 @@ function AddQuestion() {
   const [correctAnswer, setCorrectAnswer] = useState("");
 
   const addQuestion = useQuestionStore((state) => state.addQuestion);
-  const addTopic = useQuestionStore((state) => state.addTopic);
   const topics = useQuestionStore((state) => state.topics);
 
   const handleAnswerChange = (index, value) => {
@@ -23,41 +23,55 @@ function AddQuestion() {
     setAnswers(newAnswers);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const topic = topics.find((t) => t.title === category);
+    try {
+      const response = await fetch(`${apiBase}/api/questions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          topicTitle: category,
+          lecturerName: lecturer,
+          questionNum: parseInt(number),
+          question,
+          choices: answers,
+          correctAnswer,
+        }),
+      });
 
-    if (!topic) {
-      const newTopic = {
-        id: topics.length + 1,
-        title: category,
-        lecturer: lecturer || "Unknown",
-        numberOfQuestions: 1,
-      };
-      addTopic(newTopic);
-      addQuestion(newTopic.id, {
-        id: number,
-        text: question,
-        options: answers,
-        answer: correctAnswer,
-      });
-    } else {
-      addQuestion(topic.id, {
-        id: number,
-        text: question,
-        options: answers,
-        answer: correctAnswer,
-      });
+      const result = await response.json();
+
+      if (result.success) {
+        toast("Question added successfully", { theme: "success" });
+
+        const topic = topics.find((e) => e.title === category);
+
+        if (topic) {
+          addQuestion(topic.id, {
+            topicTitle: category,
+            lecturerName: lecturer,
+            questionNum: parseInt(number),
+            question,
+            choices: answers,
+            correctAnswer,
+          });
+        }
+
+        setCategory("");
+        setLecturer("");
+        setNumber("");
+        setQuestion("");
+        setAnswers(["", "", "", ""]);
+        setCorrectAnswer("");
+      } else {
+        toast(`Error: ${result.message}`, { theme: "error" });
+      }
+    } catch (error) {
+      toast(`Error: ${error.message}`, { theme: "error" });
     }
-
-    toast("Question added successfully", { theme: "success" });
-
-    setCategory("");
-    setLecturer("");
-    setNumber("");
-    setQuestion("");
-    setAnswers(["", "", "", ""]);
-    setCorrectAnswer("");
   };
 
   return (
@@ -125,7 +139,6 @@ function AddQuestion() {
               <div key={index}>
                 <label>{label}:</label>
                 <input
-                  className="answers-input"
                   type="text"
                   value={answers[index]}
                   onChange={(e) => handleAnswerChange(index, e.target.value)}
@@ -135,24 +148,18 @@ function AddQuestion() {
             ))}
           </div>
         </div>
-        <div className="fill-in-space">
+
+        <div className="correct-answer-section">
           <label>Correct Answer:</label>
-          <select
+          <input
+            type="text"
             value={correctAnswer}
             onChange={(e) => setCorrectAnswer(e.target.value)}
             required
-          >
-            <option value="">Select correct answer</option>
-            {answers.map((answer, index) => (
-              <option key={index} value={answer}>
-                {answer}
-              </option>
-            ))}
-          </select>
+          />
         </div>
-        <button className="submit-btn" type="submit">
-          Add Question
-        </button>
+
+        <button type="submit">Add Question</button>
       </form>
     </section>
   );

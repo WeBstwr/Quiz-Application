@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import usersRouter from "./routes/users.routes.js";
 import authRouter from "./routes/auth.routes.js";
 import questionsRouter from "./routes/questions.routes.js";
+import topicsRouter from "./routes/topics.routes.js";
 import cors from "cors";
 
 config();
@@ -25,10 +26,12 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 app.use("/api/users", usersRouter);
-app.use("/api/auth", authRouter);
+app.use("/wards/api/auth", authRouter);
 app.use("/api/questions", questionsRouter);
+app.use("/api/topics", topicsRouter);
 
 app.listen(8001, () => {
-  console.log("Server is running on port 8001");
+  console.log("Server is running on port8001");
 });
