@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useQuestionStore from "../../store/questionStore.js";
+import useUserStore from "../../store/userStore.js";
+import useParticipationStore from "../../store/participationStore.js";
 import { apiBase } from "../../utils/config.js";
 import "./questions.css";
 
@@ -13,6 +15,8 @@ function Questions() {
 
   const questions = useQuestionStore((state) => state.questions[topicId] || []);
   const setQuestions = useQuestionStore((state) => state.setQuestions);
+  const { user } = useUserStore();
+  const { fetchParticipationByStudentId } = useParticipationStore();
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -38,7 +42,7 @@ function Questions() {
     fetchQuestions();
   }, [topicId, setQuestions]);
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = async () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
@@ -50,8 +54,41 @@ function Questions() {
       });
       setScore(correctAnswersCount);
 
+      const submitParticipation = async () => {
+        if (user) {
+          try {
+            const response = await fetch(`${apiBase}/api/participation`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+              body: JSON.stringify({
+                topicId,
+                topicName: decodeURIComponent(topicTitle),
+                questionsDone: questions.length,
+                results: correctAnswersCount,
+              }),
+            });
+            const result = await response.json();
+            if (result.success) {
+              fetchParticipationByStudentId();
+            } else {
+              console.error("Error submitting participation:", result.message);
+            }
+          } catch (error) {
+            console.error("Failed to submit participation", error);
+          }
+        }
+      };
+
+      await submitParticipation();
+
       navigate("/Results", {
-        state: { score: correctAnswersCount, totalQuestions: questions.length },
+        state: {
+          score: correctAnswersCount,
+          totalQuestions: questions.length,
+        },
       });
     }
   };

@@ -4,15 +4,23 @@ const client = new PrismaClient();
 
 export const addParticipation = async (req, res) => {
   const studentId = req.user.id;
-  const { topicId, questionsDone, results } = req.body;
+  const { topicName, topicId, questionsDone, results } = req.body;
 
   try {
     const newParticipation = await client.studentParticipation.create({
       data: {
         studentId,
         topicId,
+        topicName,
         questionsDone,
         results,
+      },
+      select: {
+        id: true,
+        topicId: true,
+        topicName: true,
+        questionsDone: true,
+        results: true,
       },
     });
     res.status(201).json({ success: true, data: newParticipation });

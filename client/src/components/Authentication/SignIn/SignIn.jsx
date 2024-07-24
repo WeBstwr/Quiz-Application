@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import useUserStore from "../../../store/userStore.js";
+import useParticipationStore from "../../../store/participationStore.js";
 import toast from "react-simple-toasts";
 import "react-simple-toasts/dist/theme/dark.css";
 import { Link } from "react-router-dom";
@@ -9,6 +10,7 @@ import "./signIn.css";
 
 const SignIn = () => {
   const { user, changeUserInformation } = useUserStore();
+  const { fetchParticipationByStudentId } = useParticipationStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
@@ -34,6 +36,9 @@ const SignIn = () => {
       if (data.success) {
         changeUserInformation(data.data);
         toast("Welcome back!", { theme: "dark" });
+
+        await fetchParticipationByStudentId();
+
         if (data.data.role === "admin") {
           navigate("/admin");
         } else {
