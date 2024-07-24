@@ -66,13 +66,10 @@
   text-align: center;
 }
 
-.answers-input {
-  border: 2px solid var(--first-color);
-  border-radius: 5px;
-  margin-bottom: 2rem;
-  padding: 3px;
-  width: 20rem;
-  font-size: 2rem;
+.choices-section h3 {
+  font-size: 3rem;
+  padding: 1rem;
+  color: var(--first-color);
 }
 
 .answers-container {
@@ -89,6 +86,24 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
+}
+
+.answers-container input {
+  padding: 5px;
+  font-size: 1.8rem;
+}
+
+.correct-answer-section {
+  font-size: 1.8rem;
+  font-weight: 500;
+  padding: 5px;
+  margin: 2rem auto;
+}
+
+.correct-answer-section input {
+  border-radius: 5px;
+  font-size: 1.8rem;
+  padding: 5px;
 }
 
 .submit-btn {

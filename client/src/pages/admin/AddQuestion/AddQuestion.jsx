@@ -159,7 +159,9 @@ function AddQuestion() {
           />
         </div>
 
-        <button type="submit">Add Question</button>
+        <button className="submit-btn" type="submit-btn">
+          Add Question
+        </button>
       </form>
     </section>
   );
