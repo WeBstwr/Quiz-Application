@@ -15,10 +15,10 @@ const participationStore = (set) => ({
       if (result.success) {
         set({ participation: result.data });
       } else {
-        console.error("Error fetching participation data:", result.message);
+        console.log("Error fetching participation data:", result.message);
       }
     } catch (error) {
-      console.error("Failed to fetch participation data", error);
+      console.log("Failed to fetch participation data", error);
     }
   },
 });
